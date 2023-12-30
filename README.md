@@ -1,4 +1,6 @@
 # Minecraft Figura Slugcat Model
+![slugcatdramatic](https://github.com/H077y/minecraftslugcat/assets/64114013/a07aac42-4759-447f-a3dc-7875594b3307)
+
 A few slugcat models for Rain World and Minecraft fans! You can use this model in vanilla un-modded servers, or solo.\
 \
 **Download Figura:** [![Modrinth](https://img.shields.io/badge/Modrinth-1bd96a?logo=modrinth&logoColor=ffffff)](https://modrinth.com/mod/figura) [![CurseForge](https://img.shields.io/badge/CurseForge-f16436?logo=curseforge&logoColor=ffffff)](https://curseforge.com/minecraft/mc-mods/figura) [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github)](https://github.com/FiguraMC/Figura/releases/latest)
