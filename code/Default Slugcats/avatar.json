@@ -1,0 +1,12 @@
+{
+  "name":"§4Default Slugcat",
+  "description":"§oA base model for the RainWorld species, Slugcat.\nIt includes all of the base game and DLC slugcats.",
+  "authors":[
+    "Dragon Nest",
+    "SquAPI (Squishy)",
+    "JimmyAnims (Jimmy)",
+    "GSAnimBlend (Grandpa Scout)",
+    "PhysBoneAPI (Chloe)",
+    "Swinging Physics (Manuel)"
+  ]
+}
