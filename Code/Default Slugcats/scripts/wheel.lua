@@ -173,11 +173,13 @@ function pings.slugcat(scugType)
 	slugcatUpperBody.head.Main.Marks:setVisible((scug == "saint" or scug == "ascendedSaint"))
 
 	slugcatUpperBody.head.Main.Eyes.Artificer:setVisible((scug == "artificer"))
+	slugcatUpperBody.head.Main.Burn:setVisible((scug == "artificer"))
 	slugcat.Items.ItemSpear.Explosive:setVisible((scug == "artificer"))
 	
 	slugcatUpperBody.head.Main.Eyes.Saint:setVisible((scug == "saint"))
 
 	slugcatUpperBody.head.Main.Eyes.Hunter:setVisible((scug == "hunter"))
+	slugcatUpperBody.Body.Main.Rot:setVisible((scug == "hunter"))
 
 	slugcatUpperBody.head.Main.Eyes.Rivulet:setVisible((scug == "rivulet"))
 	slugcatUpperBody.head.Main.Gills:setVisible((scug == "rivulet"))
