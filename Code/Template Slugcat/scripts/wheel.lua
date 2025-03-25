@@ -11,6 +11,9 @@ local playerSize = false
 local eyeHeight = false
 local gunHide = false
 
+local microphoneOffTime = 0
+local isMicrophoneOn = false
+
 function events.tick()
 
 	local bootsEnchant = player:getItem(3).tag.Enchantments
@@ -95,6 +98,25 @@ function events.tick()
 	slugcatLowerBody.RightLeg.Boots:setColor(color)
 	slugcatLowerBody.LeftLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
 	slugcatLowerBody.RightLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
+
+	local previousMicState = isMicrophoneOn
+    
+    microphoneOffTime = microphoneOffTime + 1
+    isMicrophoneOn = microphoneOffTime <= 2 -- has svc.microphone been called in the past 2 ticks?
+  
+    if previousMicState ~= isMicrophoneOn then
+        pings.talking(isMicrophoneOn)
+    end
+end
+
+if client:isModLoaded("figurasvc") and host:isHost() then
+    events["svc.microphone"] = function (pcm)
+        microphoneOffTime = 0
+    end
+end
+
+function pings.talking(state)
+	slugcat.FullBody.ComMark:setVisible(state)
 end
 
 function events.item_render(item, mode, pos, rot, scale, lefty)

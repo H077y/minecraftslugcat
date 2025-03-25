@@ -97,6 +97,18 @@ squapi.bounceWalk:new(
     0.4     --(1) bounceMultiplier
 )
 
+--replace each nil with the value/parmater you want to use, or leave as nil to use default values :)
+--parenthesis are default values for reference
+squapi.hoverPoint:new(
+    slugcat.Drone,    --element
+    nil,    --(0.2) springStrength
+    nil,    --(5) mass
+    nil,    --(1) resistance
+    nil,    --(0.05) rotationSpeed
+    false     --(false) doCollisions
+)
+animations["models.slugcat"].droneSpin:play()
+
 nameplate.ENTITY:setPos(0,-0.5,0)
 
 local SwingingPhysics = require("scripts.api.swinging_physics")

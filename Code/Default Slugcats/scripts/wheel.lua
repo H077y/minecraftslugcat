@@ -16,6 +16,9 @@ local playerSize = false
 local eyeHeight = false
 local gunHide = false
 
+local microphoneOffTime = 0
+local isMicrophoneOn = false
+
 function events.tick()
 
 	local bootsEnchant = player:getItem(3).tag.Enchantments
@@ -102,6 +105,25 @@ function events.tick()
 	slugcatLowerBody.RightLeg.Boots:setColor(color)
 	slugcatLowerBody.LeftLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
 	slugcatLowerBody.RightLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
+
+	local previousMicState = isMicrophoneOn
+    
+    microphoneOffTime = microphoneOffTime + 1
+    isMicrophoneOn = microphoneOffTime <= 2 -- has svc.microphone been called in the past 2 ticks?
+  
+    if previousMicState ~= isMicrophoneOn then
+        pings.talking(isMicrophoneOn)
+    end
+end
+
+if client:isModLoaded("figurasvc") and host:isHost() then
+    events["svc.microphone"] = function (pcm)
+        microphoneOffTime = 0
+    end
+end
+
+function pings.talking(state)
+	slugcat.FullBody.ComMark:setVisible(state)
 end
 
 function events.item_render(item, mode, pos, rot, scale, lefty)
@@ -259,6 +281,12 @@ function pings.tongue(tongue)
 	log(tongue and "[Tongue] On" or "[Tongue] Off")
 end
 
+function pings.drone(drone)
+	slugcat.Drone:setVisible(drone and true or false)
+
+	log(tongue and "[Drone] On" or "[Drone] Off")
+end
+
 function pings.ascensionMark(ascensionMark)
 	slugcat.FullBody.AscensionMark:setVisible(ascensionMark and true or false)
 
@@ -390,6 +418,14 @@ toggles:newAction()
 	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 96, 96, 32, 32)
 	:toggled(false)
 	:onToggle(pings.tongue)
+	:setColor(vectors.hexToRGB("#2c43b7"))
+	:setHoverColor(vectors.hexToRGB("#95a1db"))
+	:setToggleColor(vectors.hexToRGB("#57cee8"))
+toggles:newAction()
+	:title("Citizen ID Drone")
+	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 192, 0, 32, 32)
+	:toggled(false)
+	:onToggle(pings.drone)
 	:setColor(vectors.hexToRGB("#2c43b7"))
 	:setHoverColor(vectors.hexToRGB("#95a1db"))
 	:setToggleColor(vectors.hexToRGB("#57cee8"))

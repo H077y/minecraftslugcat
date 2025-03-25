@@ -24,6 +24,9 @@ local secondaryColour = vectors.hexToRGB("#ffffff")
 local eyeSecondary = false
 local markSecondary = false
 
+local microphoneOffTime = 0
+local isMicrophoneOn = false
+
 require('scripts.api.colourPicker.core')
 
 if host:isHost() then
@@ -116,6 +119,25 @@ function events.tick()
 	slugcatLowerBody.RightLeg.Boots:setColor(color)
 	slugcatLowerBody.LeftLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
 	slugcatLowerBody.RightLeg.Boots:setSecondaryRenderType((bootsEnchant == nil) and "NONE" or "GLINT")
+
+	local previousMicState = isMicrophoneOn
+    
+    microphoneOffTime = microphoneOffTime + 1
+    isMicrophoneOn = microphoneOffTime <= 2 -- has svc.microphone been called in the past 2 ticks?
+  
+    if previousMicState ~= isMicrophoneOn then
+        pings.talking(isMicrophoneOn)
+    end
+end
+
+if client:isModLoaded("figurasvc") and host:isHost() then
+    events["svc.microphone"] = function (pcm)
+        microphoneOffTime = 0
+    end
+end
+
+function pings.talking(state)
+	slugcat.FullBody.ComMark:setVisible(state)
 end
 
 function events.item_render(item, mode, pos, rot, scale, lefty)
@@ -260,6 +282,12 @@ function pings.tongue(tongue)
 	log(tongue and "[Tongue] On" or "[Tongue] Off")
 end
 
+function pings.drone(drone)
+	slugcat.Drone:setVisible(drone and true or false)
+
+	log(tongue and "[Drone] On" or "[Drone] Off")
+end
+
 function pings.ascensionMark(ascensionMark)
 	slugcat.FullBody.AscensionMark:setVisible(ascensionMark and true or false)
 
@@ -298,6 +326,22 @@ function pings.featureMarks(enabled)
 	slugcatUpperBody.head.Main.Marks:setVisible(enabled)
 
 	log("[Feature]", (enabled and "+" or "-").." Marks")
+end
+
+function pings.featureHorns(enabled)
+	slugcatUpperBody.head.UpHorns:setVisible(enabled)
+
+	log("[Horns]", (enabled and "+" or "-").." Marks")
+end
+
+function pings.featureSpine(enabled)
+	slugcatUpperBody.head.Main.headSpine:setVisible(enabled)
+	slugcatUpperBody.Body.Main.BackSpine:setVisible(enabled)
+	slugcatUpperBody.Body.Tail1.Main.TailSpine1:setVisible(enabled)
+	slugcatUpperBody.Body.Tail1.Tail2.Main.TailSpine2:setVisible(enabled)
+	slugcatUpperBody.Body.Tail1.Tail2.Tail3.TailSpine3:setVisible(enabled)
+
+	log("[Back Spikes]", (enabled and "+" or "-").." Marks")
 end
 
 --- MENU ---
@@ -392,6 +436,8 @@ pings.setColor = function (color,picker)
 		slugcatLowerBody.LeftLeg.Main:setColor(color)
 		slugcatLowerBody.RightLeg.Main:setColor(color)
 
+		slugcat.Drone.droneTopMiddle:setColor(color)
+
 		primaryColour = color
 		if markSecondary == false then
 			pings.markColour(false)
@@ -402,11 +448,20 @@ pings.setColor = function (color,picker)
 		slugcatUpperBody.head.Main.Gills:setColor(color)
 		slugcatUpperBody.head.Main.Marks:setColor(color)
 		slugcatUpperBody.head.Main.Tongue1:setColor(color)
+		slugcatUpperBody.head.UpHorns:setColor(color)
+
+		slugcatUpperBody.head.Main.headSpine:setColor(color)
+		slugcatUpperBody.Body.Main.BackSpine:setColor(color)
+		slugcatUpperBody.Body.Tail1.Main.TailSpine1:setColor(color)
+		slugcatUpperBody.Body.Tail1.Tail2.Main.TailSpine2:setColor(color)
+		slugcatUpperBody.Body.Tail1.Tail2.Tail3.TailSpine3:setColor(color)
 		
 		slugcatUpperBody.Body.Tail1.Main.Spearmaster:setColor(color)
 		slugcatUpperBody.Body.Tail1.Tail2.Main.Spearmaster:setColor(color)
 		slugcatUpperBody.Body.Tail1.Tail2.Tail3.Spearmaster:setColor(color)
 		slugcatUpperBody.Body.Tail1.Tail2.Tail3.Tail4.Spearmaster:setColor(color)
+
+		slugcat.Drone.DroneOutside:setColor(color)
 
 		secondaryColour = color
 		if eyeSecondary == true then
@@ -596,6 +651,22 @@ feature:newAction()
 	:setColor(vectors.hexToRGB("#f691ff"))
 	:setHoverColor(vectors.hexToRGB("#fac8ff"))
 	:setToggleColor(vectors.hexToRGB("#722dbd"))
+feature:newAction()
+	:title("Horns")
+	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 192, 32, 32, 32)
+	:toggled(false)
+	:onToggle(pings.featureHorns)
+	:setColor(vectors.hexToRGB("#f691ff"))
+	:setHoverColor(vectors.hexToRGB("#fac8ff"))
+	:setToggleColor(vectors.hexToRGB("#722dbd"))
+feature:newAction()
+	:title("Back Spikes")
+	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 192, 64, 32, 32)
+	:toggled(false)
+	:onToggle(pings.featureSpine)
+	:setColor(vectors.hexToRGB("#f691ff"))
+	:setHoverColor(vectors.hexToRGB("#fac8ff"))
+	:setToggleColor(vectors.hexToRGB("#722dbd"))
 
 --- TOGGLES ---
 toggles:newAction()
@@ -627,6 +698,14 @@ toggles:newAction()
 	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 96, 96, 32, 32)
 	:toggled(false)
 	:onToggle(pings.tongue)
+	:setColor(vectors.hexToRGB("#2c43b7"))
+	:setHoverColor(vectors.hexToRGB("#95a1db"))
+	:setToggleColor(vectors.hexToRGB("#57cee8"))
+toggles:newAction()
+	:title("Citizen ID Drone")
+	:texture(textures["textures.icons"] or textures["models.slugcat.icons"], 192, 0, 32, 32)
+	:toggled(false)
+	:onToggle(pings.drone)
 	:setColor(vectors.hexToRGB("#2c43b7"))
 	:setHoverColor(vectors.hexToRGB("#95a1db"))
 	:setToggleColor(vectors.hexToRGB("#57cee8"))
