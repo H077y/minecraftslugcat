@@ -7,7 +7,6 @@ A few slugcat models for Rain World and Minecraft fans! You can use this model i
 
 > ⚠️ This model contains spoilers. All spoilers are marked so you cannot accidentally use them. **HOWEVER** it is still recommended that you play through a single campaign at least once before continuing onward.
 
-> ℹ️  If you want to use this avatar in **Minecraft 1.20.x**, please download **Figura 0.1.3 pre.3** from the **Figura Discord**: [![Discord](https://wsrv.nl/?url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F1129805506354085959%2Fwidget.png&n=-1)](https://discord.gg/figuramc)
 ## Features
 - An action wheel *(Check your keybinds)* containing multiple toggles and settings depending on which avatar you use
 - Shaking in rain *(Rain is scary)*
@@ -56,6 +55,6 @@ This model *does* contain the normal features including toggles and model switch
 - Origins *(Read more [here](https://modrinth.com/mod/origins))* *(Will add support for the Figura model)*
 - Slugpup model *(Containing the base slugcat textures and a template model)* *(Ability to make it a pet that follows you around as well)*
 # Other Information
-If you come across any issues with the model, feel free to contact me on Discord *(in the [Figura Discord](https://discord.gg/figuramc) in **avatar-showcase** -> **Slugcat Base**)* *(Dragon Nest `h077y`)* or on [Reddit]([https://discord.gg/figuramc](https://www.reddit.com/user/H077y)https://www.reddit.com/user/H077y) *(`H077y`)*.\
+If you come across any issues with the model, feel free to contact me on Discord *(in the **Figura Discord** [![Discord](https://wsrv.nl/?url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F1129805506354085959%2Fwidget.png&n=-1)](https://discord.gg/figuramc) in **avatar-showcase** -> **Slugcat Base**)* *(Dragon Nest `h077y`)* or on [Reddit]([https://discord.gg/figuramc](https://www.reddit.com/user/H077y)https://www.reddit.com/user/H077y) *(`H077y`)*.\
 \
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/B0B0KO1DU)
