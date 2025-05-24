@@ -40,7 +40,6 @@ A few slugcat models for Rain World and Minecraft fans! You can use this model i
 This model contains every base game and Downpour slugcat. These can be selected via the action wheel.
 ## Custom Slugcat
 This model contains a customisable version of the base model with the action wheel containing almost everything you might need to modify.
-> ⚠️ This model **REQUIRES** a developer release of Figura to work. Please obtain **Figura 0.1.3 pre.3** from the **Figura Discord**: [![Discord](https://wsrv.nl/?url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F1129805506354085959%2Fwidget.png&n=-1)](https://discord.gg/figuramc)
 ### Customisation
 - Colour Selector *(Primary & Secondary)*
 - Eyes *(Black or Secondary Colour)* *(Base/Hunter/Artificer/Rivulet/Saint)*
